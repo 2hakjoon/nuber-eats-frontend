@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.5.6",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -10,14 +11,19 @@
     "@types/node": "^16.11.17",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "autoprefixer": "^10.4.0",
+    "graphql": "^16.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "tailwindcss": "^3.0.7",
     "typescript": "^4.5.4",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "tailwind:build": "tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css",
+    "start": "npm run tailwind:build & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -50,6 +56,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "postcss-import": "^14.0.2",
     "prettier": "^2.5.1"
   }
 }
