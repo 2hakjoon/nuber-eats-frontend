@@ -11,7 +11,6 @@
     "@types/node": "^16.11.17",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "autoprefixer": "^10.4.0",
     "graphql": "^16.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -23,6 +22,7 @@
   },
   "scripts": {
     "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./public/tailwind-output.css --watch",
+    "start:dev": "react-scripts start",
     "start": "concurrently --kill-others \"npm run tailwind:build\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.0",
     "concurrently": "^6.5.1",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -57,6 +58,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "postcss": "^8.4.5",
     "postcss-import": "^14.0.2",
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.7"
