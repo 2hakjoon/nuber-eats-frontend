@@ -21,7 +21,7 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./public/tailwind-output.css --watch",
+    "tailwind:build": "npx tailwindcss -i ./src/styles/index.css -o ./public/tailwind-output.css --watch",
     "start:dev": "react-scripts start",
     "start": "concurrently --kill-others \"npm run tailwind:build\" \"react-scripts start\"",
     "build": "react-scripts build",
