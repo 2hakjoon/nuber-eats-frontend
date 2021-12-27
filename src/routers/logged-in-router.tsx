@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const LoggedInRouter = () => {
+function LoggedInRouter() {
 	return <div>LoggedInRouter</div>;
-};
+}
+
+export default LoggedInRouter;

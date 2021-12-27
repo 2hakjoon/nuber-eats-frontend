@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { CreateAccount } from '../pages/create-account';
-import { Login } from '../pages/login';
+import CreateAccount from '../pages/create-account';
+import Login from '../pages/login';
 
-export const LoggedOutRouter = () => {
+function LoggedOutRouter() {
 	return (
 		<Router>
 			<Routes>
@@ -12,4 +12,6 @@ export const LoggedOutRouter = () => {
 			</Routes>
 		</Router>
 	);
-};
+}
+
+export default LoggedOutRouter;

@@ -1,21 +1,44 @@
+import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import FormError from '../components/form-error';
+import { LoginMutation, LoginMutationVariables } from '../__generated__/LoginMutation';
+
+const LOGIN_MUTATION = gql`
+	mutation LoginMutation($email: String!, $password: String!) {
+		login(input: { email: $email, password: $password }) {
+			ok
+			token
+			error
+		}
+	}
+`;
 
 interface ILoignForm {
-	email?: string;
-	password?: string;
+	email: string;
+	password: string;
 }
 
-export const Login = () => {
+function Login() {
 	const {
 		register,
 		getValues,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<ILoignForm>();
-	const onSubmit = (data: ILoignForm): void => {
-		console.log(data);
+	} = useForm<ILoignForm>({ mode: 'onBlur' });
+
+	const [loginMutation, { loading, error, data }] = useMutation<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION);
+
+	const onSubmit = (formData: ILoignForm): void => {
+		const { email, password } = formData;
+		loginMutation({
+			variables: {
+				email,
+				password,
+			},
+		});
 	};
+
 	return (
 		<div className="h-screen flex items-center justify-center bg-gray-800">
 			<div className="bg-white w-full max-w-lg py-10 rounded-lg text-center">
@@ -28,15 +51,15 @@ export const Login = () => {
 						placeholder="Email"
 						className="input"
 					/>
-					{errors.email && <span className="font-medium text-red-500">Email Error</span>}
+					{errors.email && <FormError errorMessage={errors.email?.message} />}
 					<input
-						{...register('password', { required: true, minLength: 10 })}
+						{...register('password', { required: true })}
 						required
 						type="password"
 						placeholder="Password"
 						className="input"
 					/>
-					{errors.password && <span className="font-medium text-red-500">Password must be more than 10 chars</span>}
+					{errors.password?.type === 'minLength' && <FormError errorMessage={errors.password?.message} />}
 					<button type="submit" className="button">
 						Log In
 					</button>
@@ -44,4 +67,6 @@ export const Login = () => {
 			</div>
 		</div>
 	);
-};
+}
+
+export default Login;

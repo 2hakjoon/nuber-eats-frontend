@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const CreateAccount = () => {
+function CreateAccount() {
 	return <div>CreateAccount Component</div>;
-};
+}
+
+export default CreateAccount;
