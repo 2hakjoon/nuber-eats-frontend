@@ -2,9 +2,9 @@
 
 @import "tailwindcss/components";
 .input{
-  @apply bg-gray-100 py-3 px-5 rounded-xl shadow-inner focus:bg-gray-300;
+  @apply border-gray-300 border p-3 shadow-inner rounded-sm focus:bg-gray-100 focus:outline-none focus:border-gray-500 transition-colors;
 }
 .button{
-  @apply py-3 px-5 bg-gray-800 text-white font-medium text-lg rounded-lg focus:outline-none;
+  @apply mt-3 py-4 px-5 bg-lime-700 text-white font-medium text-lg rounded-md focus:outline-none hover:bg-lime-800 transition-colors;
 }
 @import "tailwindcss/utilities";
