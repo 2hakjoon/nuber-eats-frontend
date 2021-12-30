@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { gql, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,8 @@ import { loginMutation, loginMutationVariables } from '../generated/loginMutatio
 import { LoginInput } from '../generated/globalTypes';
 import uberLogo from '../images/uber-eats-logo.svg';
 import Button from '../components/button';
+import regexEmail from '../utils/regex';
+import { isLoggedInVar } from '../apollo';
 
 const LOGIN_MUTATION = gql`
 	mutation loginMutation($LoginInput: LoginInput!) {
@@ -26,7 +29,7 @@ function Login() {
 			login: { ok, token },
 		} = data;
 		if (ok) {
-			console.log(token);
+			isLoggedInVar(true);
 		}
 	};
 
@@ -53,12 +56,16 @@ function Login() {
 
 	return (
 		<div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
+			<Helmet title="Login | NuberEats" />
 			<div className="w-full max-w-screen-sm flex flex-col item-center px-5">
 				<img src={uberLogo} alt="uber-eats" className="w-56 mb-5 mx-auto" />
 				<h4 className="text-2xl mb-5 font-semibold">Welcome Back</h4>
 				<form onSubmit={handleSubmit(onSubmit)} className="grid gap-3 mt-5">
 					<input
-						{...register('email', { required: true })}
+						{...register('email', {
+							required: true,
+							pattern: { value: regexEmail, message: 'Please enter a valid email' },
+						})}
 						required
 						type="email"
 						placeholder="Email"
