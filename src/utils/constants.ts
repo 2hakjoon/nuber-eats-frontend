@@ -1,3 +1,3 @@
-const LOCALSTORAGE_TOKEN = 'nuber-authToken';
+const LOCALSTORAGE_TOKEN = 'nuber-authTokenVar';
 
 export default LOCALSTORAGE_TOKEN;

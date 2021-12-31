@@ -9,7 +9,7 @@ import { LoginInput } from '../generated/globalTypes';
 import uberLogo from '../images/uber-eats-logo.svg';
 import Button from '../components/button';
 import regexEmail from '../utils/regex';
-import { authToken, isLoggedInVar } from '../apollo';
+import { authTokenVar, isLoggedInVar } from '../apollo';
 import LOCALSTORAGE_TOKEN from '../utils/constants';
 
 const LOGIN_MUTATION = gql`
@@ -31,7 +31,7 @@ function Login() {
 		} = data;
 		if (ok && token) {
 			localStorage.setItem(LOCALSTORAGE_TOKEN, token);
-			authToken(token);
+			authTokenVar(token);
 			isLoggedInVar(true);
 		}
 	};
