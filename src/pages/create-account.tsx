@@ -21,7 +21,7 @@ const CREATE_ACCOUNT_MUTATION = gql`
 
 function CreateAccount() {
 	const navigate = useNavigate();
-	const { register, getValues, handleSubmit, formState } = useForm<CreateAccountInput>({
+	const { register, handleSubmit, formState } = useForm<CreateAccountInput>({
 		mode: 'onChange',
 		defaultValues: { role: UserRole.Client },
 	});

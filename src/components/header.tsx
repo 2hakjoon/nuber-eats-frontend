@@ -6,7 +6,7 @@ import { useMe } from '../hooks/useMe';
 import uberLogo from '../images/uber-eats-logo.svg';
 
 function Header() {
-	const { data, loading, error } = useMe();
+	const { data } = useMe();
 	return (
 		<>
 			{!data?.me.emailVerified && (

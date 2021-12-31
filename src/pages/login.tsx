@@ -23,7 +23,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 function Login() {
-	const { register, getValues, handleSubmit, formState } = useForm<LoginInput>({ mode: 'onChange' });
+	const { register, handleSubmit, formState } = useForm<LoginInput>({ mode: 'onChange' });
 
 	const onCompleted = (data: loginMutation) => {
 		const {
@@ -36,12 +36,12 @@ function Login() {
 		}
 	};
 
-	const [LoginMutation, { loading, error, data: loginMutationResult }] = useMutation<
-		loginMutation,
-		loginMutationVariables
-	>(LOGIN_MUTATION, {
-		onCompleted,
-	});
+	const [LoginMutation, { loading, data: loginMutationResult }] = useMutation<loginMutation, loginMutationVariables>(
+		LOGIN_MUTATION,
+		{
+			onCompleted,
+		}
+	);
 
 	const onSubmit = (formData: LoginInput): void => {
 		const { email, password } = formData;

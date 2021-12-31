@@ -52,12 +52,9 @@ function EditProfile() {
 		}
 	};
 
-	const [editProfile, { loading }] = useMutation<editProfileMutation, editProfileMutationVariables>(
-		EDIT_PROFILE_MUTATION,
-		{
-			onCompleted,
-		}
-	);
+	const [editProfile] = useMutation<editProfileMutation, editProfileMutationVariables>(EDIT_PROFILE_MUTATION, {
+		onCompleted,
+	});
 
 	const onSubmit = ({ email, password }: EditProfileInput) => {
 		editProfile({

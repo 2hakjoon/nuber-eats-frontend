@@ -55,7 +55,7 @@ function ConfirmEmail() {
 				},
 			},
 		});
-	}, ['']);
+	}, []);
 
 	return (
 		<div className="mt-50 flex flex-col items-center justify-center ">
