@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { gql, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ import Button from '../components/button';
 import { CreateAccountInput, UserRole } from '../generated/globalTypes';
 import regexEmail from '../utils/regex';
 import { createAccountMutation, createAccountMutationVariables } from '../generated/createAccountMutation';
-import { isLoggedInVar } from '../apollo';
 
 const CREATE_ACCOUNT_MUTATION = gql`
 	mutation createAccountMutation($createAccountInput: CreateAccountInput!) {
