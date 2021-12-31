@@ -16,7 +16,9 @@ function Header() {
 			)}
 			<header className="py-4 flex items-center">
 				<div className="w-full px-5 xl:px-20 flex items-center justify-between">
-					<img src={uberLogo} alt="uber-eats" className="w-30" />
+					<Link to="/">
+						<img src={uberLogo} alt="uber-eats" className="w-30" />
+					</Link>
 					<span className="text-xs">
 						<Link to="/edit-profile">
 							<FontAwesomeIcon icon={faUser} className="text-xl" />
