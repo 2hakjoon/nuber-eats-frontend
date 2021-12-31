@@ -7,7 +7,7 @@ import FormError from '../components/form-error';
 import uberLogo from '../images/uber-eats-logo.svg';
 import Button from '../components/button';
 import { CreateAccountInput, UserRole } from '../generated/globalTypes';
-import regexEmail from '../utils/regex';
+import { regexEmail } from '../utils/regex';
 import { createAccountMutation, createAccountMutationVariables } from '../generated/createAccountMutation';
 
 const CREATE_ACCOUNT_MUTATION = gql`

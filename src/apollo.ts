@@ -1,6 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache, makeVar } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import LOCALSTORAGE_TOKEN from './utils/constants';
+import { LOCALSTORAGE_TOKEN } from './utils/constants';
 
 const token = localStorage.getItem(LOCALSTORAGE_TOKEN);
 

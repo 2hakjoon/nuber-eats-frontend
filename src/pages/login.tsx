@@ -8,9 +8,9 @@ import { loginMutation, loginMutationVariables } from '../generated/loginMutatio
 import { LoginInput } from '../generated/globalTypes';
 import uberLogo from '../images/uber-eats-logo.svg';
 import Button from '../components/button';
-import regexEmail from '../utils/regex';
+import { regexEmail } from '../utils/regex';
 import { authTokenVar, isLoggedInVar } from '../apollo';
-import LOCALSTORAGE_TOKEN from '../utils/constants';
+import { LOCALSTORAGE_TOKEN } from '../utils/constants';
 
 const LOGIN_MUTATION = gql`
 	mutation loginMutation($LoginInput: LoginInput!) {
