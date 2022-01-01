@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Restaurant from '../../components/restaurant';
 import { restaurantsPageQuery, restaurantsPageQueryVariables } from '../../generated/restaurantsPageQuery';
+import { RESTAURANT_FRAGMENT } from '../../utils/fragments';
 
 const RESTAURANT_QUERY = gql`
 	query restaurantsPageQuery($input: RestaurantsInput!) {
@@ -25,17 +26,11 @@ const RESTAURANT_QUERY = gql`
 			totalPages
 			totalResults
 			restaurants {
-				id
-				name
-				coverImg
-				category {
-					name
-				}
-				address
-				isPromoted
+				...RestaurantParts
 			}
 		}
 	}
+	${RESTAURANT_FRAGMENT}
 `;
 
 function Restaurants() {
