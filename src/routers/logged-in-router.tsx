@@ -6,6 +6,7 @@ import Header from '../components/header';
 import { useMe } from '../hooks/useMe';
 import ConfirmEmail from '../pages/user/confirm-email';
 import EditProfile from '../pages/user/edit-profile';
+import Search from '../pages/client/search';
 
 function LoggedInRouter() {
 	const { data, loading, error } = useMe();
@@ -25,6 +26,7 @@ function LoggedInRouter() {
 						<Route path="/" element={<Restaurants />} />
 						<Route path="/confirm" element={<ConfirmEmail />} />
 						<Route path="/edit-profile" element={<EditProfile />} />
+						<Route path="/search" element={<Search />} />
 					</>
 				)}
 				<Route path="*" element={<NotFound />} />
