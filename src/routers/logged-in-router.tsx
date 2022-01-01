@@ -8,6 +8,7 @@ import ConfirmEmail from '../pages/user/confirm-email';
 import EditProfile from '../pages/user/edit-profile';
 import Search from '../pages/client/search';
 import Category from '../pages/client/category';
+import Restaurant from '../pages/client/restaurant';
 
 function LoggedInRouter() {
 	const { data, loading, error } = useMe();
@@ -29,6 +30,7 @@ function LoggedInRouter() {
 						<Route path="/edit-profile" element={<EditProfile />} />
 						<Route path="/search" element={<Search />} />
 						<Route path="/category/:sulg" element={<Category />} />
+						<Route path="/restaurnts/:id" element={<Restaurant />} />
 					</>
 				)}
 				<Route path="*" element={<NotFound />} />
