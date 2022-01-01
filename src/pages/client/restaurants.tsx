@@ -2,10 +2,10 @@ import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Restaurant from '../../components/restaurant';
 import { restaurantsPageQuery, restaurantsPageQueryVariables } from '../../generated/restaurantsPageQuery';
-import { RESTAURANT_FRAGMENT } from '../../utils/fragments';
+import { CATEGORY_FRAGMENT, RESTAURANT_FRAGMENT } from '../../utils/fragments';
 
 const RESTAURANT_QUERY = gql`
 	query restaurantsPageQuery($input: RestaurantsInput!) {
@@ -13,11 +13,7 @@ const RESTAURANT_QUERY = gql`
 			ok
 			error
 			categories {
-				id
-				name
-				coverImg
-				slug
-				restaurantCount
+				...CategoryParts
 			}
 		}
 		allRestaurants(input: $input) {
@@ -31,6 +27,7 @@ const RESTAURANT_QUERY = gql`
 		}
 	}
 	${RESTAURANT_FRAGMENT}
+	${CATEGORY_FRAGMENT}
 `;
 
 function Restaurants() {
@@ -81,13 +78,15 @@ function Restaurants() {
 				<div className="max-w-screen-2xl mx-auto mt-8">
 					<div className="flex justify-between max-w-screen-sm mx-auto w-full">
 						{data?.allCategories.categories?.map((category) => (
-							<div key={category.id} className="flex flex-col items-center">
-								<div
-									className="w-20 h-20 rounded-full bg-red-500 bg-cover"
-									style={{ backgroundImage: `url(${category.coverImg})` }}
-								/>
-								<span className="text-sm text-center font-medium mt-2">{category.name}</span>
-							</div>
+							<Link to={`/category/${category.slug}`}>
+								<div key={category.id} className="flex flex-col items-center">
+									<div
+										className="w-20 h-20 rounded-full bg-red-500 bg-cover"
+										style={{ backgroundImage: `url(${category.coverImg})` }}
+									/>
+									<span className="text-sm text-center font-medium mt-2">{category.name}</span>
+								</div>
+							</Link>
 						))}
 					</div>
 					<div className="grid md:grid-cols-3 gap-x-5 gap-x-10 mt-12 i">
