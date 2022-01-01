@@ -30,7 +30,7 @@ function LoggedInRouter() {
 						<Route path="/edit-profile" element={<EditProfile />} />
 						<Route path="/search" element={<Search />} />
 						<Route path="/category/:sulg" element={<Category />} />
-						<Route path="/restaurnts/:id" element={<Restaurant />} />
+						<Route path="/restaurants/:id" element={<Restaurant />} />
 					</>
 				)}
 				<Route path="*" element={<NotFound />} />
