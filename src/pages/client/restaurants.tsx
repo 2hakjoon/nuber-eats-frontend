@@ -64,6 +64,18 @@ function Restaurants() {
 							</div>
 						))}
 					</div>
+					<div className="grid grid-cols-3 gap-x-5 gap-x-10">
+						{data?.allRestaurants.restaurants?.map((restaurant) => (
+							<div>
+								<div
+									style={{ backgroundImage: `url(${restaurant.coverImg})` }}
+									className="bg-red-500 py-28 bg-cover bg-center"
+								/>
+								<h3 className="text-lg font-medium">{restaurant.name}</h3>
+								<span className="border-t-2">{restaurant.category?.name}</span>
+							</div>
+						))}
+					</div>
 				</div>
 			)}
 			<div />
