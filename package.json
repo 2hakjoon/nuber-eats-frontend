@@ -31,7 +31,8 @@
     "start": "concurrently --kill-others \"npm run tailwind:build\" \"npm run start:dev\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:cov" : "npm test -- --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": [
@@ -68,5 +69,13 @@
     "postcss-import": "^14.0.2",
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.7"
+  },
+  "jest" :{
+    "collectCoverageFrom":[
+      "./src/components/**/*tsx",
+      "./src/pages/**/*tsx",
+      "./src/routers/**/*.tsx",
+      "./src/App.tsx"
+    ]
   }
 }
