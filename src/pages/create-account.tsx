@@ -10,7 +10,7 @@ import { CreateAccountInput, UserRole } from '../generated/globalTypes';
 import { regexEmail } from '../utils/regex';
 import { createAccountMutation, createAccountMutationVariables } from '../generated/createAccountMutation';
 
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
 	mutation createAccountMutation($createAccountInput: CreateAccountInput!) {
 		createAccount(input: $createAccountInput) {
 			ok
