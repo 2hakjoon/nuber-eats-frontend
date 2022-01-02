@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { gql, useLazyQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

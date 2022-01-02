@@ -7,6 +7,7 @@ import uberLogo from '../images/uber-eats-logo.svg';
 
 function Header() {
 	const { data } = useMe();
+	console.log(data);
 	return (
 		<>
 			{!data?.me.emailVerified && (

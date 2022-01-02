@@ -89,7 +89,7 @@ function Restaurants() {
 							</Link>
 						))}
 					</div>
-					<div className="grid md:grid-cols-3 gap-x-5 gap-x-10 mt-12 i">
+					<div className="grid md:grid-cols-3 gap-x-5 gap-y-10 mt-12 i">
 						{data?.allRestaurants.restaurants?.map((restaurant) => (
 							<Restaurant
 								key={restaurant.id}
