@@ -12,7 +12,7 @@ import { regexEmail } from '../utils/regex';
 import { authTokenVar, isLoggedInVar } from '../apollo';
 import { LOCALSTORAGE_TOKEN } from '../utils/constants';
 
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
 	mutation loginMutation($LoginInput: LoginInput!) {
 		login(input: $LoginInput) {
 			ok
