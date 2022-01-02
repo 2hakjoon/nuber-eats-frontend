@@ -2,9 +2,8 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import Button from '../button';
 
-const BUTTON_TEXT = '테스트';
-
 describe('<Button />', () => {
+	const BUTTON_TEXT = '테스트';
 	it('should render OK with props', () => {
 		const { getByText, container } = render(<Button canClick loading={false} actionText={BUTTON_TEXT} />);
 		getByText(BUTTON_TEXT);
