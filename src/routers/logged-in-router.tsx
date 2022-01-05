@@ -9,6 +9,8 @@ import EditProfile from '../pages/user/edit-profile';
 import Search from '../pages/client/search';
 import Category from '../pages/client/category';
 import Restaurant from '../pages/client/restaurant';
+import MyRestaurants from '../pages/owner/my-restaurants';
+import { AddRestaurant } from '../pages/owner/add-restaurants';
 
 function LoggedInRouter() {
 	const { data, loading, error } = useMe();
@@ -23,14 +25,20 @@ function LoggedInRouter() {
 		<Router>
 			<Header />
 			<Routes>
+				<Route path="/confirm" element={<ConfirmEmail />} />
+				<Route path="/edit-profile" element={<EditProfile />} />
 				{data.me.role === 'Client' && (
 					<>
 						<Route path="/" element={<Restaurants />} />
-						<Route path="/confirm" element={<ConfirmEmail />} />
-						<Route path="/edit-profile" element={<EditProfile />} />
 						<Route path="/search" element={<Search />} />
 						<Route path="/category/:sulg" element={<Category />} />
 						<Route path="/restaurants/:id" element={<Restaurant />} />
+					</>
+				)}
+				{data.me.role === 'Owner' && (
+					<>
+						<Route path="/" element={<MyRestaurants />} />
+						<Route path="add-restaurant" element={<AddRestaurant />} />
 					</>
 				)}
 				<Route path="*" element={<NotFound />} />
