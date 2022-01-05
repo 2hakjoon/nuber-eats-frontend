@@ -22,5 +22,6 @@ describe('Create Account', () => {
 		cy.findByPlaceholderText(/email/i).type('3hakjoon@gmail.com');
 		cy.findByPlaceholderText(/password/i).type('123456');
 		cy.findByRole('button').click();
+		cy.assertLoggedIn();
 	});
 });
