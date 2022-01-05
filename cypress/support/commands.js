@@ -28,3 +28,11 @@ import '@testing-library/cypress/add-commands';
 Cypress.Commands.add('assertLoggedIn', () => {
 	cy.window().its('localStorage.nuber-authTokenVar').should('be.a', 'string');
 });
+
+Cypress.Commands.add('login', (email, password) => {
+	cy.visit('/');
+	cy.findByPlaceholderText(/email/i).type(email);
+	cy.findByPlaceholderText(/password/i).type(password);
+	cy.findByRole('button').should('not.have.class', 'bg-gray-300 pointer-events-none').click();
+	cy.window().its('localStorage.nuber-authTokenVar').should('be.a', 'string');
+});
