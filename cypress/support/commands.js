@@ -36,3 +36,7 @@ Cypress.Commands.add('login', (email, password) => {
 	cy.findByRole('button').should('not.have.class', 'bg-gray-300 pointer-events-none').click();
 	cy.window().its('localStorage.nuber-authTokenVar').should('be.a', 'string');
 });
+
+Cypress.Commands.add('assertTitle', (title) => {
+	cy.title().should('eq', title);
+});

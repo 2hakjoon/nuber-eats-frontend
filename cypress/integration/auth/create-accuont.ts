@@ -2,17 +2,14 @@ describe('Create Account', () => {
 	it('createaccount', () => {
 		cy.visit('/');
 		cy.intercept('http://localhost:4000/graphql', (req) => {
-			req.reply((res) => {
-				res.send({
-					data: {
-						createAccount: {
-							ok: true,
-							error: null,
-							__typename: 'CreateAccountOutpit',
-						},
-					},
+			const { operationName } = req.body;
+			if (operationName && operationName === 'createAccountMutation') {
+				req.reply((res) => {
+					res.send({
+						fixture: 'auth/create-account.json',
+					});
 				});
-			});
+			}
 		});
 		cy.findByText(/create an account/i).click();
 		cy.findByPlaceholderText(/email/i).type('3hakjoon@gmail.com');
