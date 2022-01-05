@@ -30,7 +30,7 @@ function CreateAccount() {
 			createAccount: { ok },
 		} = data;
 		if (ok) {
-			navigate('/login');
+			navigate('/');
 		}
 	};
 	const [CreateAccountMutation, { loading, data: createAccountMutationResult }] = useMutation<
