@@ -11,6 +11,8 @@ import Category from '../pages/client/category';
 import Restaurant from '../pages/client/restaurant';
 import MyRestaurants from '../pages/owner/my-restaurants';
 import { AddRestaurant } from '../pages/owner/add-restaurants';
+import { MyRestaurant } from '../pages/owner/my-restaurant';
+import { AddDish } from '../pages/owner/add-dish';
 
 function LoggedInRouter() {
 	const { data, loading, error } = useMe();
@@ -38,7 +40,9 @@ function LoggedInRouter() {
 				{data.me.role === 'Owner' && (
 					<>
 						<Route path="/" element={<MyRestaurants />} />
-						<Route path="add-restaurant" element={<AddRestaurant />} />
+						<Route path="/add-restaurant" element={<AddRestaurant />} />
+						<Route path="/restaurants/:id" element={<MyRestaurant />} />
+						<Route path="/restaurants/:restaurantId/add-dishes" element={<AddDish />} />
 					</>
 				)}
 				<Route path="*" element={<NotFound />} />
