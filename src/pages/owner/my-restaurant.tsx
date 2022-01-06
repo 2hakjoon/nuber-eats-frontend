@@ -1,6 +1,7 @@
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { VictoryBar, VictoryChart } from 'victory';
 import Dish from '../../components/dish';
 import { myRestaurantQuery, myRestaurantQueryVariables } from '../../generated/myRestaurantQuery';
 import { DISH_FRAGMENT, RESTAURANT_FRAGMENT } from '../../utils/fragments';
@@ -71,6 +72,14 @@ export function MyRestaurant() {
 							))}
 						</div>
 					)}
+				</div>
+			</div>
+			<div className="mt-20">
+				<h4 className="text-center text-2xl font-medium">Sales</h4>
+				<div className="max-w-sm w-full mx-auto">
+					<VictoryChart domainPadding={20}>
+						<VictoryBar />
+					</VictoryChart>
 				</div>
 			</div>
 		</div>
