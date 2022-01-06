@@ -3,62 +3,70 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { RestaurantInput } from "./globalTypes";
+import { MyRestaurantInput } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: myRestaurantQuery
 // ====================================================
 
-export interface myRestaurantQuery_restaurant_restaurant_category {
+export interface myRestaurantQuery_myRestaurant_restaurant_category {
   __typename: "Category";
   name: string;
 }
 
-export interface myRestaurantQuery_restaurant_restaurant_menu_options_choice {
+export interface myRestaurantQuery_myRestaurant_restaurant_menus_options_choice {
   __typename: "DishChoice";
   name: string;
   extra: number | null;
 }
 
-export interface myRestaurantQuery_restaurant_restaurant_menu_options {
+export interface myRestaurantQuery_myRestaurant_restaurant_menus_options {
   __typename: "DishOption";
   name: string;
   extra: number | null;
-  choice: myRestaurantQuery_restaurant_restaurant_menu_options_choice[] | null;
+  choice: myRestaurantQuery_myRestaurant_restaurant_menus_options_choice[] | null;
 }
 
-export interface myRestaurantQuery_restaurant_restaurant_menu {
+export interface myRestaurantQuery_myRestaurant_restaurant_menus {
   __typename: "Dish";
   id: number;
   name: string;
   price: number;
   photo: string | null;
   description: string;
-  options: myRestaurantQuery_restaurant_restaurant_menu_options[] | null;
+  options: myRestaurantQuery_myRestaurant_restaurant_menus_options[] | null;
 }
 
-export interface myRestaurantQuery_restaurant_restaurant {
+export interface myRestaurantQuery_myRestaurant_restaurant_orders {
+  __typename: "Order";
+  id: number;
+  createdAt: any;
+  total: number | null;
+}
+
+export interface myRestaurantQuery_myRestaurant_restaurant {
   __typename: "Restaurant";
   id: number;
   name: string;
   coverImg: string;
-  category: myRestaurantQuery_restaurant_restaurant_category | null;
+  category: myRestaurantQuery_myRestaurant_restaurant_category | null;
   address: string;
   isPromoted: boolean;
-  menu: myRestaurantQuery_restaurant_restaurant_menu[] | null;
+  menus: myRestaurantQuery_myRestaurant_restaurant_menus[] | null;
+  orders: myRestaurantQuery_myRestaurant_restaurant_orders[];
 }
 
-export interface myRestaurantQuery_restaurant {
-  __typename: "RestaurantOutput";
+export interface myRestaurantQuery_myRestaurant {
+  __typename: "MyRestaurantOutput";
   ok: boolean;
   error: string | null;
-  restaurant: myRestaurantQuery_restaurant_restaurant | null;
+  restaurant: myRestaurantQuery_myRestaurant_restaurant | null;
 }
 
 export interface myRestaurantQuery {
-  restaurant: myRestaurantQuery_restaurant;
+  myRestaurant: myRestaurantQuery_myRestaurant;
 }
 
 export interface myRestaurantQueryVariables {
-  input: RestaurantInput;
+  input: MyRestaurantInput;
 }
