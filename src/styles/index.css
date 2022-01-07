@@ -8,6 +8,6 @@
   @apply mt-3 py-4 px-5 bg-lime-700 text-white font-medium text-lg rounded-md focus:outline-none hover:bg-lime-800 transition-colors;
 }
 .container{
-  @apply w-full flex flex-col items-center px-5
+  @apply w-full flex flex-col items-center px-5 mx-auto
 }
 @import "tailwindcss/utilities";
