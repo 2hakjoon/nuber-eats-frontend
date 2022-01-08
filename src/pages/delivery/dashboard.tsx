@@ -54,6 +54,28 @@ function DashBoard() {
 		setMap(map);
 		setMaps(maps);
 	};
+	const onGetRoute = () => {
+		if (map) {
+			const directionsService = new google.maps.DirectionsService();
+			const directionRenderer = new google.maps.DirectionsRenderer();
+			directionRenderer.setMap(map);
+			directionsService.route(
+				{
+					origin: {
+						location: new google.maps.LatLng(driverCoords.lat, driverCoords.lng),
+					},
+					destination: {
+						location: new google.maps.LatLng(driverCoords.lat - 0.01, driverCoords.lng - 0.01),
+					},
+					travelMode: google.maps.TravelMode.TRANSIT,
+				},
+				(result, status) => {
+					console.log(status);
+					directionRenderer.setDirections(result);
+				}
+			);
+		}
+	};
 	return (
 		<div className="h-screen">
 			<div className="bg-gray-800 h-3/6">
@@ -63,7 +85,7 @@ function DashBoard() {
 					defaultZoom={15}
 					defaultCenter={{
 						lat: 35.85,
-						lng: 127.16,
+						lng: 127.15,
 					}}
 					bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_MAP_API}` }}
 				>
@@ -74,6 +96,9 @@ function DashBoard() {
 						$hover=""
 					/>
 				</GoogleMapReact>
+				<button type="button" onClick={onGetRoute}>
+					Get Route
+				</button>
 			</div>
 		</div>
 	);
