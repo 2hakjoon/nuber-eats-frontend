@@ -122,6 +122,17 @@ function Order() {
 								Status: {getOrderdata?.getOrder.order?.status}
 							</span>
 						)}
+					{userData?.me.role === UserRole.Delivery && getOrderdata?.getOrder.order?.status === OrderStatus.Cooked && (
+						<button onClick={() => onButtonClick(OrderStatus.PickedUp)} type="button">
+							Picked up
+						</button>
+					)}
+					{userData?.me.role === UserRole.Delivery && getOrderdata?.getOrder.order?.status === OrderStatus.PickedUp && (
+						<button onClick={() => onButtonClick(OrderStatus.Deliverd)} type="button">
+							Order Delivered
+						</button>
+					)}
+					{getOrderdata?.getOrder.order?.status === OrderStatus.Deliverd && <span>Thank for Using NuberEats</span>}
 				</div>
 			</div>
 		</div>

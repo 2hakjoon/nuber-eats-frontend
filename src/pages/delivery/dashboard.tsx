@@ -1,5 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { gql, useMutation, useSubscription } from '@apollo/client';
+import { Link, useNavigate } from 'react-router-dom';
+import { FULL_ORDER_FRAGMENT } from '../../utils/fragments';
+import { coockedOrders } from '../../generated/coockedOrders';
+import { takeOrder, takeOrderVariables } from '../../generated/takeOrder';
+
+const COOCKED_ORDERS_SUBSCRIPTION = gql`
+	subscription coockedOrders {
+		cookedOrders {
+			...FullOrderParts
+		}
+	}
+	${FULL_ORDER_FRAGMENT}
+`;
+
+const TAKE_ORDER_MUTATION = gql`
+	mutation takeOrder($input: TakeOrderInput!) {
+		takeOrder(input: $input) {
+			ok
+			error
+		}
+	}
+`;
 
 interface ICoords {
 	lat: number;
@@ -27,6 +50,7 @@ function Driver({ lat, lng, $hover }: IDriverProps) {
 
 function DashBoard() {
 	const [driverCoords, setDriverCoords] = useState<ICoords>({ lat: 0, lng: 0 });
+	const navigate = useNavigate();
 	const [map, setMap] = useState<any>();
 	const [maps, setMaps] = useState<any>();
 	const onSucces = ({ coords: { latitude, longitude } }: GeolocationPosition) => {
@@ -76,6 +100,33 @@ function DashBoard() {
 			);
 		}
 	};
+
+	const { data: coockedOrdersData } = useSubscription<coockedOrders>(COOCKED_ORDERS_SUBSCRIPTION);
+	useEffect(() => {
+		if (coockedOrdersData?.cookedOrders.id) {
+			onGetRoute();
+		}
+	}, [coockedOrdersData]);
+
+	const onCompletedTakeOrder = (data: takeOrder) => {
+		if (data.takeOrder.ok) {
+			navigate(`/orders/${coockedOrdersData?.cookedOrders.id}`);
+		}
+	};
+
+	const [takeOrderMuataion] = useMutation<takeOrder, takeOrderVariables>(TAKE_ORDER_MUTATION, {
+		onCompleted: onCompletedTakeOrder,
+	});
+
+	const triggerMutation = (id: number) => {
+		takeOrderMuataion({
+			variables: {
+				input: {
+					id,
+				},
+			},
+		});
+	};
 	return (
 		<div className="h-screen">
 			<div className="bg-gray-800 h-3/6">
@@ -96,10 +147,18 @@ function DashBoard() {
 						$hover=""
 					/>
 				</GoogleMapReact>
-				<button type="button" onClick={onGetRoute}>
-					Get Route
-				</button>
 			</div>
+			{coockedOrdersData?.cookedOrders ? (
+				<div className="max-w-screen-sm mx-auto">
+					<h1>New Cooked Order</h1>
+					<h4>Pick it up soon</h4>
+					<button type="button" onClick={() => triggerMutation(coockedOrdersData.cookedOrders.id)}>
+						<span>Accept Delivery</span>
+					</button>
+				</div>
+			) : (
+				<h1>No Order yet...</h1>
+			)}
 		</div>
 	);
 }
