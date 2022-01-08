@@ -86,5 +86,5 @@
       "./src/App.tsx"
     ]
   },
-  "proxy": "http://localhost:4000"
+  "proxy": ""
 }
