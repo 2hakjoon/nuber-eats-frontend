@@ -6,6 +6,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { client } from './apollo';
 
+console.log(process.env.REACT_APP_GOOGLE_MAP_API);
+
 ReactDOM.render(
 	<React.StrictMode>
 		<ApolloProvider client={client}>

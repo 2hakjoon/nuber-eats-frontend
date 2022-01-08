@@ -1,9 +1,12 @@
-import { gql, useQuery, useSubscription } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getOrder, getOrderVariables } from '../../generated/getOrder';
-import { orderUpdates, orderUpdatesVariables } from '../../generated/orderUpdates';
+import { orderUpdates } from '../../generated/orderUpdates';
+import { editOrder, editOrderVariables } from '../../generated/editOrder';
+import { useMe } from '../../hooks/useMe';
 import { FULL_ORDER_FRAGMENT } from '../../utils/fragments';
+import { OrderStatus, UserRole } from '../../generated/globalTypes';
 
 const GET_ORDER = gql`
 	query getOrder($input: GetOrderInput!) {
@@ -27,8 +30,19 @@ const ORDER_SUBSCRIPTION = gql`
 	${FULL_ORDER_FRAGMENT}
 `;
 
+const EDIT_ORDER = gql`
+	mutation editOrder($input: EditOrderInput!) {
+		editOrder(input: $input) {
+			ok
+			error
+		}
+	}
+`;
+
 function Order() {
 	const params = useParams();
+	const { data: userData } = useMe();
+	const [editOrderMutation] = useMutation<editOrder, editOrderVariables>(EDIT_ORDER);
 	const { data: getOrderdata, subscribeToMore } = useQuery<getOrder, getOrderVariables>(GET_ORDER, {
 		variables: {
 			input: {
@@ -45,7 +59,7 @@ function Order() {
 						id: +(params.id || 0),
 					},
 				},
-				updateQuery: (prev, { subscriptiondata: { data } }: { subscriptionData: { data: orderUpdates } }) => {
+				updateQuery: (prev, { subscriptionData: { data } }: { subscriptionData: { data: orderUpdates } }) => {
 					if (!data) return prev;
 					return {
 						getOrder: {
@@ -59,6 +73,17 @@ function Order() {
 			});
 		}
 	}, [getOrderdata]);
+
+	const onButtonClick = (newStatus: OrderStatus) => {
+		editOrderMutation({
+			variables: {
+				input: {
+					id: +(params.id || 0),
+					status: newStatus,
+				},
+			},
+		});
+	};
 
 	return (
 		<div className="mt-32 container flex justify-center">
@@ -75,9 +100,28 @@ function Order() {
 					<div className="border-t border-b py-5 border-gray-700">
 						Driver: <span className="font-medium">{getOrderdata?.getOrder.order?.driver?.email || 'Not yet.'}</span>
 					</div>
-					<span className=" text-center mt-5 mb-3  text-2xl text-lime-600">
-						Status: {getOrderdata?.getOrder.order?.status}
-					</span>
+					{userData?.me.role === UserRole.Client && (
+						<span className=" text-center mt-5 mb-3  text-2xl text-lime-600">
+							Status: {getOrderdata?.getOrder.order?.status}
+						</span>
+					)}
+					{userData?.me.role === UserRole.Owner && getOrderdata?.getOrder.order?.status === OrderStatus.Pending && (
+						<button onClick={() => onButtonClick(OrderStatus.Cooking)} type="button">
+							Accept Order
+						</button>
+					)}
+					{userData?.me.role === UserRole.Owner && getOrderdata?.getOrder.order?.status === OrderStatus.Cooking && (
+						<button onClick={() => onButtonClick(OrderStatus.Cooked)} type="button">
+							Order Cooked
+						</button>
+					)}
+					{userData?.me.role === UserRole.Owner &&
+						getOrderdata?.getOrder.order?.status !== OrderStatus.Cooking &&
+						getOrderdata?.getOrder.order?.status !== OrderStatus.Pending && (
+							<span className=" text-center mt-5 mb-3  text-2xl text-lime-600">
+								Status: {getOrderdata?.getOrder.order?.status}
+							</span>
+						)}
 				</div>
 			</div>
 		</div>

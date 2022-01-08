@@ -14,6 +14,8 @@ import { AddRestaurant } from '../pages/owner/add-restaurants';
 import { MyRestaurant } from '../pages/owner/my-restaurant';
 import { AddDish } from '../pages/owner/add-dish';
 import Order from '../pages/user/order';
+import DashBoard from '../pages/delivery/dashboard';
+import { UserRole } from '../generated/globalTypes';
 
 function LoggedInRouter() {
 	const { data, loading, error } = useMe();
@@ -31,7 +33,7 @@ function LoggedInRouter() {
 				<Route path="/confirm" element={<ConfirmEmail />} />
 				<Route path="/edit-profile" element={<EditProfile />} />
 				<Route path="/orders/:id" element={<Order />} />
-				{data.me.role === 'Client' && (
+				{data.me.role === UserRole.Client && (
 					<>
 						<Route path="/" element={<Restaurants />} />
 						<Route path="/search" element={<Search />} />
@@ -39,7 +41,7 @@ function LoggedInRouter() {
 						<Route path="/restaurants/:id" element={<Restaurant />} />
 					</>
 				)}
-				{data.me.role === 'Owner' && (
+				{data.me.role === UserRole.Owner && (
 					<>
 						<Route path="/" element={<MyRestaurants />} />
 						<Route path="/add-restaurant" element={<AddRestaurant />} />
@@ -47,6 +49,7 @@ function LoggedInRouter() {
 						<Route path="/restaurants/:restaurantId/add-dishes" element={<AddDish />} />
 					</>
 				)}
+				{data.me.role === UserRole.Delivery && <Route path="/" element={<DashBoard />} />}
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</Router>

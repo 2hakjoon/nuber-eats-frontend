@@ -1,9 +1,8 @@
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useSubscription } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
 	VictoryAxis,
-	VictoryBar,
 	VictoryChart,
 	VictoryLabel,
 	VictoryLine,
@@ -12,10 +11,10 @@ import {
 	VictoryVoronoiContainer,
 } from 'victory';
 import Dish from '../../components/dish';
-import { myRestaurant, myRestaurantVariables } from '../../generated/myRestaurant';
+import { myRestaurantVariables } from '../../generated/myRestaurant';
 import { myRestaurantQuery } from '../../generated/myRestaurantQuery';
-import { myRestaurantsQuery } from '../../generated/myRestaurantsQuery';
-import { DISH_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT } from '../../utils/fragments';
+import { pendingOrders } from '../../generated/pendingOrders';
+import { DISH_FRAGMENT, FULL_ORDER_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT } from '../../utils/fragments';
 
 export const MY_RESTAURANT_QUERY = gql`
 	query myRestaurantQuery($input: MyRestaurantInput!) {
@@ -36,6 +35,15 @@ export const MY_RESTAURANT_QUERY = gql`
 	${RESTAURANT_FRAGMENT}
 	${DISH_FRAGMENT}
 	${ORDER_FRAGMENT}
+`;
+
+const PENDING_ORDERS_SUBSCRIPTION = gql`
+	subscription pendingOrders {
+		pendingOrders {
+			...FullOrderParts
+		}
+	}
+	${FULL_ORDER_FRAGMENT}
 `;
 
 type ChartData = {
@@ -74,6 +82,13 @@ export function MyRestaurant() {
 			navigate('/');
 		}
 	}, []);
+	const { data: subscriptionData } = useSubscription<pendingOrders>(PENDING_ORDERS_SUBSCRIPTION);
+
+	useEffect(() => {
+		if (subscriptionData?.pendingOrders.id) {
+			navigate(`/orders/${subscriptionData.pendingOrders.id}`);
+		}
+	}, [subscriptionData]);
 
 	return (
 		<div>
